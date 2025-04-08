@@ -47,10 +47,27 @@ pub enum TokenType {
     EOF,
 }
 #[derive(Debug)]
-pub  struct  Token<T>{
+pub  struct  Token{
     pub token_type: TokenType,
     pub lexeme: String,
-    pub literal: Option<T>,
+    pub literal: LiteralValue,
     pub line: u16,
+}
+#[derive(Debug)]
+pub  struct Scanner{
+    pub source: String,
+    pub start: u16,
+    pub line: u16,
+    pub current: u16,
+    pub tokens: Vec<Token>,
+}
+#[derive(Debug)]
+pub enum  LiteralValue {
+    Double(f64),
+    Number(u64),
+    String(String),
+    Boolean(bool),
+    NIL,
+    
 }
 }

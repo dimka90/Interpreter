@@ -1,8 +1,10 @@
 mod types;
 mod behaviours;
-use crate::types::types::types::{TokenType, Token};
+use crate::types::types::types::{TokenType, Token, Scanner, LiteralValue};
 fn main() {
-let token: Token<String> = Token::new(TokenType::AND, "AND".to_string(), Some(String::from("&&")), 1);
+let mut scan:Scanner = Scanner::new("{/*-");
 
-println!("{:?}", token);
+scan.scan_tokens();
+
+println!("{:?}", scan);
 }
