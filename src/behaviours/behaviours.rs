@@ -1,4 +1,4 @@
-use crate::types::types::types::{LiteralValue, Scanner, Token, TokenType};
+use crate::types::types::types::{LiteralValue, Scanner, Token, TokenType, Invincible};
 impl Token {
     pub fn new(token_type: TokenType, lexeme: String, literal: LiteralValue, line: u16) -> Self {
         Self {
@@ -37,10 +37,9 @@ impl Scanner {
                 ':' => self.add_token(TokenType::SEMICOLON),
                 '/' => self.add_token(TokenType::SLASH),
                 '*' => self.add_token(TokenType::STAR),
-                'l' => println!("i am letter l"),
-                'e' => println!("I am letter e"),
-                't' => println!("I am letter t"),
-                _ => (),
+                _ => {
+                    Invincible::error("Unexpected character", self.line, character)
+                },
             }
         }
         vec![]
@@ -62,13 +61,17 @@ impl Scanner {
             .skip(self.start.into())
             .take((self.current as u16 - self.start as u16).into())
             .collect();
-        let token: Token = Token {
-            token_type: token,
-            lexeme: substring,
-            literal: LiteralValue::NIL,
-            line: self.line,
-        };
+        let token: Token = Token::new(token, substring, LiteralValue::NIL, self.line);
 
         self.tokens.push(token);
     }
+}
+
+impl  Invincible{
+
+    pub fn error(messsage: &str, line: u16, character: char){
+
+        eprintln!("line[{}]  Message[{}] Character[{}]",line , messsage, character)
+    }
+    
 }

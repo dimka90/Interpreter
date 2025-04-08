@@ -1,5 +1,6 @@
 pub mod types{
 
+pub struct  Invincible;
 #[derive(Debug)]
 pub enum TokenType {
     // Single-character tokens.
